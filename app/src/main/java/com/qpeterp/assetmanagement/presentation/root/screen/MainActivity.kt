@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         MyApplication.prefs = PreferenceManager(application)
         val prefs = MyApplication.prefs
 
-        val isLoggedIn = prefs.token.isNotEmpty()
+        val isLoggedIn = prefs.userId.isNotEmpty()
 
         setContent {
             AssetManagementTheme {

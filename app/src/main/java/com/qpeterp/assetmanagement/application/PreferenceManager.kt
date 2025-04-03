@@ -7,10 +7,10 @@ class PreferenceManager(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences(FIT_BATTLE_APP, Context.MODE_PRIVATE)
 
-    var token: String by PreferenceDelegate("TOKEN", "")
+    var userId: String by PreferenceDelegate("USERID", "")
 
     fun clearToken() {
-        token = ""
+        userId = ""
     }
 
     companion object {

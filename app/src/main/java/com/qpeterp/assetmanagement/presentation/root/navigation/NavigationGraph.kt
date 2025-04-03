@@ -29,6 +29,6 @@ fun NavigationGraph(
 
         // Main 그룹 네비게이션
         composable(NavGroup.Main.HOME) { HomeScreen(navController) }
-//        composable(NavGroup.Main.DETAIL) { DetailScreen(navController) }
+//        composable(NavGroup.Main.DETAIL) { SecurityScreen(navController) }
     }
 }

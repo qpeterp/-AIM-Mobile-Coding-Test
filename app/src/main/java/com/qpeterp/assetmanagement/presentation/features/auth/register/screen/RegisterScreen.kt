@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.qpeterp.assetmanagement.application.MyApplication
 import com.qpeterp.assetmanagement.presentation.core.components.AmButton
 import com.qpeterp.assetmanagement.presentation.core.components.AmTextField
 import com.qpeterp.assetmanagement.presentation.core.components.ErrorText
@@ -84,10 +85,12 @@ fun RegisterScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         AmButton(
+            // TODO: api 연동 시, 회원 검증 추가
             onClick = {
                 if (step < 4) {
                     viewModel.nextStep()
                 } else {
+                    MyApplication.prefs.userId = id
                     navController.navigate(NavGroup.Main.HOME)
                 }
             },
