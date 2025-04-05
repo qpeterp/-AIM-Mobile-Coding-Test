@@ -211,7 +211,7 @@ fun RatioItem(
         )
         Box(
             modifier = Modifier
-                .weight(6f)
+                .weight(5f)
                 .height(6.dp)
                 .padding(32.dp, 0.dp, 0.dp, 0.dp)
                 .background(Color(0xFF242B35), shape = CircleShape),
