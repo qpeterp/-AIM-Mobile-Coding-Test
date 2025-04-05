@@ -10,35 +10,37 @@
 ## 🖼️ 주요 화면
 
 ### 📍 앱 아이콘  
-![앱 아이콘](https://github.com/user-attachments/assets/07d6d6c0-57ab-48f6-8107-056a4e0ec9e7)
+<img src="https://github.com/user-attachments/assets/07d6d6c0-57ab-48f6-8107-056a4e0ec9e7" width="120"/>
 
 ---
 
 ### 🏠 홈 및 자산 요약  
-| 홈 화면 |
-|---------|
-| ![home](https://github.com/user-attachments/assets/da92ec20-3b3a-4a7a-a129-56d1e0c2d948) |
+<img src="https://github.com/user-attachments/assets/da92ec20-3b3a-4a7a-a129-56d1e0c2d948" width="320"/>
 
 ---
 
 ### 📘 ETF 정보  
-| ETF 소개 |
-|-----------|
-| ![etf_info](https://github.com/user-attachments/assets/8f5886b3-208f-4817-a6dd-e12c84db12cc) |
+<img src="https://github.com/user-attachments/assets/8f5886b3-208f-4817-a6dd-e12c84db12cc" width="320"/>
 
 ---
 
 ### 📈 종목 리스트 및 상세  
-| 종목 리스트 | 종목 상세 |
-|-------------|------------|
-| ![security](https://github.com/user-attachments/assets/976592fe-3782-4679-b73e-170ea47dc477) | ![security2](https://github.com/user-attachments/assets/4357ca4e-bb45-495f-acf1-6842bde84251) |
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/976592fe-3782-4679-b73e-170ea47dc477" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/4357ca4e-bb45-495f-acf1-6842bde84251" width="300"/></td>
+  </tr>
+</table>
 
 ---
 
 ### 🧑 회원가입  
-| 회원가입 Step 1 | 회원가입 Step 2 |
-|------------------|------------------|
-| ![register1](https://github.com/user-attachments/assets/6394b0ed-1147-4df2-8736-6b9651268b93) | ![register2](https://github.com/user-attachments/assets/b4fe489e-f82b-45b3-88e6-04646ad3871f) |
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/6394b0ed-1147-4df2-8736-6b9651268b93" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/b4fe489e-f82b-45b3-88e6-04646ad3871f" width="300"/></td>
+  </tr>
+</table>
 
 ---
 
@@ -83,5 +85,3 @@
 | 이름 | 이메일 |
 |------|--------|
 | 이성은 | peter.co.kr@gmail.com |
-
----
