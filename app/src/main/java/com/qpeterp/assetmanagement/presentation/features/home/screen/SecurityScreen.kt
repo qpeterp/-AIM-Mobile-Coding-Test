@@ -48,6 +48,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.qpeterp.assetmanagement.R
 import com.qpeterp.assetmanagement.presentation.features.home.viewmodel.HomeViewModel
+import com.qpeterp.assetmanagement.presentation.root.navigation.NavGroup
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,7 +84,7 @@ fun SecurityScreen(
                         .clip(RoundedCornerShape(100.dp))
                         .background(primaryColor)
                         .border(1.dp, Color.White, RoundedCornerShape(100.dp))
-                        .clickable { }
+                        .clickable { navController.navigate(NavGroup.Main.ETF_INFO) }
                         .padding(horizontal = 12.dp, vertical = 4.dp)
                 ) {
                     Text("ETF란?", color = Color.White)

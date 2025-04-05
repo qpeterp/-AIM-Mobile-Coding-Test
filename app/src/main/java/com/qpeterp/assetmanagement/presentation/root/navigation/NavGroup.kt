@@ -9,5 +9,6 @@ sealed class NavGroup {
     data object Main: NavGroup() {
         const val HOME = "home"
         const val SECURITY = "security"
+        const val ETF_INFO = "ETFInfo"
     }
 }

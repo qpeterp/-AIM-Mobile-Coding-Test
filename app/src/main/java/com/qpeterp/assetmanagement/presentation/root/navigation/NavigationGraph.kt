@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.qpeterp.assetmanagement.presentation.features.auth.register.screen.RegisterScreen
+import com.qpeterp.assetmanagement.presentation.features.home.screen.EtfInfoScreen
 import com.qpeterp.assetmanagement.presentation.features.home.screen.HomeScreen
 import com.qpeterp.assetmanagement.presentation.features.home.screen.SecurityScreen
 
@@ -39,5 +40,6 @@ fun NavigationGraph(
             val assetType = backStackEntry.arguments?.getString("assetType")
             SecurityScreen(navController, assetType)
         }
+        composable(NavGroup.Main.ETF_INFO) { EtfInfoScreen(navController) }
     }
 }
