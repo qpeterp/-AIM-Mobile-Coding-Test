@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,10 +33,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,6 +48,7 @@ import androidx.navigation.NavController
 import com.qpeterp.assetmanagement.application.MyApplication
 import com.qpeterp.assetmanagement.domain.model.stock.StockData
 import com.qpeterp.assetmanagement.presentation.features.home.viewmodel.HomeViewModel
+import com.qpeterp.assetmanagement.presentation.root.navigation.NavGroup
 import com.qpeterp.assetmanagement.presentation.utils.darkenColor
 
 @Composable
@@ -53,13 +57,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val assets by viewModel.assets.collectAsState()
+    val typeColorMap = viewModel.typeColorMap
     var lastType: String? = null
-
-    val typeColorMap = mapOf(
-        "stock" to MaterialTheme.colorScheme.primary,
-        "bond" to Color(0xFF5676E0),
-        "etc" to Color(0xFFFFEC9F)
-    )
 
     val assetColors = mutableListOf<Color>()
 
@@ -86,7 +85,7 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(32.dp, 64.dp, 32.dp, 32.dp)
+                .padding(32.dp, 96.dp, 32.dp, 32.dp)
         ) {
             Text(
                 text = "${MyApplication.prefs.userId}님 어서오세요.",
@@ -119,7 +118,9 @@ fun HomeScreen(
                     .height(IntrinsicSize.Min),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                DonutChart(assets, assetColors)
+                DonutChart(assets, assetColors) { assetType ->
+                    navController.navigate("${NavGroup.Main.SECURITY}/$assetType")
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxHeight(),
@@ -236,6 +237,7 @@ fun RatioItem(
 fun DonutChart(
     assets: List<StockData>,
     colors: List<Color>,
+    onArcClick: (String) -> Unit // 클릭된 아크의 type을 전달
 ) {
     val totalRatio = assets.sumOf { it.ratio }
     val angles = assets.map { (it.ratio / totalRatio * 360).toFloat() }
@@ -256,12 +258,29 @@ fun DonutChart(
     Box(
         modifier = Modifier.size(150.dp)
     ) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
+        Canvas(modifier = Modifier.fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures { offset ->
+                    var startAngle = -90f
+                    assets.forEachIndexed { index, asset ->
+                        val arcRect = Rect(
+                            Offset(strokeWidth / 2f, strokeWidth / 2f),
+                            Size(size.width - strokeWidth, size.height - strokeWidth)
+                        )
+                        val endAngle = startAngle + angles[index]
+
+                        if (isPointInArc(offset, arcRect, startAngle, endAngle)) {
+                            onArcClick(asset.type) // 자산의 type을 전달
+                        }
+                        startAngle += angles[index]
+                    }
+                }
+            }
+        ) {
             val inset = strokeWidth / 2f
             val arcSize = Size(size.width - strokeWidth, size.height - strokeWidth)
 
             var startAngle = -90f
-            // 전체 도넛 차트가 한 번에 그려지도록 `currentAngle`을 기준으로 각도 계산
             assets.forEachIndexed { index, _ ->
                 val sweepAngle = (angles[index] / angles.sum()) * currentAngle
                 drawArc(
@@ -277,4 +296,15 @@ fun DonutChart(
             }
         }
     }
+}
+
+fun isPointInArc(point: Offset, rect: Rect, startAngle: Float, endAngle: Float): Boolean {
+    val dx = point.x - rect.center.x
+    val dy = point.y - rect.center.y
+    val distanceSquared = dx * dx + dy * dy
+    val radiusSquared = rect.width / 2f * rect.width / 2f
+
+    return distanceSquared <= radiusSquared &&
+            startAngle <= Math.toDegrees(Math.atan2(dy.toDouble(), dx.toDouble())).toFloat() &&
+            endAngle >= Math.toDegrees(Math.atan2(dy.toDouble(), dx.toDouble())).toFloat()
 }

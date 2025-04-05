@@ -5,10 +5,13 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.qpeterp.assetmanagement.presentation.features.auth.register.screen.RegisterScreen
 import com.qpeterp.assetmanagement.presentation.features.home.screen.HomeScreen
+import com.qpeterp.assetmanagement.presentation.features.home.screen.SecurityScreen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -29,6 +32,12 @@ fun NavigationGraph(
 
         // Main 그룹 네비게이션
         composable(NavGroup.Main.HOME) { HomeScreen(navController) }
-//        composable(NavGroup.Main.DETAIL) { SecurityScreen(navController) }
+        composable(
+            route = "${NavGroup.Main.SECURITY}/{assetType}",
+            arguments = listOf(navArgument("assetType") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val assetType = backStackEntry.arguments?.getString("assetType")
+            SecurityScreen(navController, assetType)
+        }
     }
 }

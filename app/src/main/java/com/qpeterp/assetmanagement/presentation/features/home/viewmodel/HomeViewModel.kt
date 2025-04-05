@@ -1,5 +1,6 @@
 package com.qpeterp.assetmanagement.presentation.features.home.viewmodel
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.qpeterp.assetmanagement.domain.model.stock.StockData
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,6 +13,16 @@ class HomeViewModel : ViewModel() {
 
     init {
         loadDummyData()
+    }
+
+    val typeColorMap = mapOf(
+        "stock" to Color(0xFF48C9CF),
+        "bond" to Color(0xFF5676E0),
+        "etc" to Color(0xFFFFEC9F)
+    )
+
+    fun getColorForType(type: String?): Color {
+        return typeColorMap[type] ?: Color.Gray
     }
 
     // TODO: api 연동 시, StockUseCase 구현 및 연동
